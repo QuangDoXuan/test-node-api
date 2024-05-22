@@ -10,3 +10,5 @@ export const httpStatusCode = {
   notFound: 404,
   internalServerError: 500
 }
+
+export const DEFAULT_TOTAL_USER = 10000;

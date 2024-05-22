@@ -1,4 +1,5 @@
 import * as dotenv from 'dotenv';
+import { DEFAULT_TOTAL_USER } from '../libs/common/constant';
 dotenv.config();
 
 export const env = {
@@ -20,4 +21,5 @@ export const env = {
       database: process.env.DB_NAME || '',
       synchronize: true,
   },
+  totalCalculatedUser: Number(process.env.TOTAL_CALCULATED_USER) || DEFAULT_TOTAL_USER
 };

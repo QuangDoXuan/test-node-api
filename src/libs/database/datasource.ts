@@ -1,6 +1,7 @@
 import { DataSource, ObjectLiteral, EntityTarget } from 'typeorm';
 import { env } from '../../configs/env';
 import { User } from './entities/user';
+import logger from '../common/logger';
 let _connection: undefined | DataSource;
 
 const entities = [
@@ -23,7 +24,7 @@ const _getDBConnection = () =>{
 };
 
 const _initConnection = async (options: IConnectionOptions) => {
-  console.log('START_INIT_DB_CONNECTION');
+  logger.info('START_INIT_DB_CONNECTION');
   const dbInfo: any = _getDBConnection();
   const dataSource = new DataSource({
     ...options,
@@ -33,15 +34,15 @@ const _initConnection = async (options: IConnectionOptions) => {
     ...dbInfo,
   });
   if (dataSource.isInitialized && _connection) {
-    console.log('USE_DB_CONNECTION_EXISTED');
+    logger.info('USE_DB_CONNECTION_EXISTED');
     return _connection;
   }
-  console.log('START_CONNECT_TO_DB');
+  logger.info('START_CONNECT_TO_DB');
   return dataSource
     .initialize()
     .then((dataSource) => {
       _connection = dataSource;
-      console.log('INIT_DB_CONNECTION_SUCCESS');
+      logger.info('INIT_DB_CONNECTION_SUCCESS');
       return _connection;
     })
     .catch((error) => {
@@ -57,7 +58,7 @@ const getRepo = async <Entity extends ObjectLiteral>(entity: EntityTarget<Entity
 
 const getConnection = async (options: IConnectionOptions = {}) => {
   if (_connection) {
-    console.log('USE_DB_CONNECTION_EXISTED');
+    logger.info('USE_DB_CONNECTION_EXISTED');
     return _connection;
   }
   return _initConnection(options);

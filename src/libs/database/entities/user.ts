@@ -23,6 +23,12 @@ export class User extends AbstractEntity<User> {
   @Column({ name: 'balance', type: 'integer', default: 0 })
   balance: number;
 
+  @Column({ name: 'days_worked', type: 'integer', default: 0 })
+  daysWorked: number;
+
+  @Column({ name: 'daily_rate', type: 'integer', default: 0 })
+  dailyRate: number;
+
   @Column({ name: 'password', length: 255, nullable: false })
   password: string;
 
